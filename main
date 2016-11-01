@@ -1,0 +1,33 @@
+#include<reg52.h>
+#include <intrins.h>
+#include <absacc.h>		  //头文件
+#define uint unsigned int
+#define uchar unsigned char	  //宏定义
+
+//按键
+sbit key1=P3^2;	   //布防
+sbit key2=P3^3;	   //撤防
+sbit key3=P3^4;	   //紧急报警
+
+sbit BUZZ=P0^4;	   //蜂鸣器
+sbit rsd=P2^4;	   //热释电输入
+sbit yanwu=P2^5;
+sbit LED_B=P2^3;   //布防指示灯
+sbit LED_S=P2^0;   //发送消息指示灯
+
+uchar code PhoneNO[]		="15046397767"; //接受号码
+
+uchar code somebody[]		="67094EBA8FDB5165FF0C8BF76CE8610F3002";	//有人进入，请注意。
+uchar code somebody1[]		="70DF96FE6D535EA68FC79AD8FF0C8BF76CE8610F3002";	//烟雾浓度过高，请注意。												  
+uchar code somebody2[]		="67094EBA8FDB5165FF0C70DF96FE6D535EA68FC79AD8FF0C8BF76CE8610F3002";	//有人进入，烟雾浓度过高，请注意。
+
+uint TIME_50ms=0;	     //计时的最小分辨率50ms
+uint time_continue;		 //蜂鸣器响时即时数据暂存
+uchar TIME_ALAM=0;
+bit flag=0,flag_BF=0;	 //flag=0 布防计时模式   flag=1 一分钟等待模式
+bit flag_time_start=0;	 //开始计时标志位
+bit again=0;			 //一分钟等待计时标志位  发送短信间隔
+bit flag_alam;		     //报警标志位
+bit SOS;			     //发送短信时候是否按下紧急键
+bit flag_continue;		 //  继续计时
+bit into_BF=0;
